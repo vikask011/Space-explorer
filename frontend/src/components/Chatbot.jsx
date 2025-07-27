@@ -8,6 +8,7 @@ import "../index.css";
 const Chatbot = () => {
   const [input, setInput] = useState("");
   const [responses, setResponses] = useState([]);
+  const [loading, setLoading] = useState(false);
   const topRef = useRef(null);
   const navigate = useNavigate();
 
@@ -16,8 +17,9 @@ const Chatbot = () => {
 
     const question = input;
     setInput("");
+    setLoading(true);
 
-    let botText = "Thinking...";
+    let botText = "";
     let images = [];
 
     try {
@@ -52,6 +54,7 @@ const Chatbot = () => {
     }
 
     setResponses((prev) => [...prev, { question, answer: botText, images }]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const Chatbot = () => {
           </p>
         </div>
 
-        {/* 🔽 Back Arrow below Navbar */}
+        {/* Back Button */}
         <div className="relative w-full max-w-2xl mt-6 mb-2 flex justify-start z-20">
           <button
             onClick={() => navigate("/")}
@@ -90,9 +93,16 @@ const Chatbot = () => {
           </button>
         </div>
 
-        {/* Chat responses */}
+        {/* Chat Responses */}
         <div className="w-full max-w-2xl mt-4 flex flex-col items-center max-h-[600px] overflow-y-scroll px-4 space-y-6">
           <div ref={topRef}></div>
+
+          {loading && (
+            <div className="flex justify-center items-center h-20 w-full">
+              <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+            </div>
+          )}
+
           {[...responses].reverse().map((res, idx) => (
             <div key={idx} className="bg-white/10 p-4 rounded-xl shadow w-full">
               <p className="font-semibold text-indigo-300">You: {res.question}</p>
@@ -111,7 +121,7 @@ const Chatbot = () => {
           ))}
         </div>
 
-        {/* Input area */}
+        {/* Input Area */}
         <div className="w-full max-w-2xl mt-6 mb-10 flex items-center gap-3 bg-white/10 backdrop-blur-sm p-3 rounded-full">
           <input
             type="text"
