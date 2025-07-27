@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Reset */
+html,
+body,
+#root,
+canvas {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+/* 🌟 Animated starfield background */
+.stars {
+  background: transparent url("https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/stars.png") repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.85; /* increased from 0.5 */
+  filter: brightness(1.6); /* added for extra visibility */
+  animation: moveStars 300s linear infinite;
+}
+
+
+/* 🌌 Nebula-like overlay with radial gradients */
+.nebula-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, rgba(63, 81, 181, 0.2), transparent 70%),
+              radial-gradient(ellipse at bottom right, rgba(156, 39, 176, 0.2), transparent 80%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ✨ Moving stars */
+@keyframes moveStars {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 10000px 10000px;
+  }
+}
+
+/* Optional: smoother canvas transitions */
+canvas {
+  transition: all 0.5s ease;
+}
