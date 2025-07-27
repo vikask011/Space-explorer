@@ -21,7 +21,7 @@ const Chatbot = () => {
     let images = [];
 
     try {
-      const res1 = await fetch("http://localhost:5000/api/chatbot/ask", {
+      const res1 = await fetch("https://space-explorer-iota.vercel.app/api/chatbot/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userMessage: question }),
@@ -42,7 +42,7 @@ const Chatbot = () => {
 
     try {
       const res2 = await fetch(
-        `http://localhost:5000/api/image/search?q=${encodeURIComponent(question)}`
+        `https://space-explorer-iota.vercel.app/api/image/search?q=${encodeURIComponent(question)}`
       );
       if (!res2.ok) throw new Error(`Image fetch error: ${res2.status}`);
       const data2 = await res2.json();
